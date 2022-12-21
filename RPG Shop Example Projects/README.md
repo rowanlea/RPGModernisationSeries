@@ -24,7 +24,7 @@ If you want a convenient way to view your data, consider downloading [SQL Server
 - Authentication = Windows authentication
 
 ### Running the Database Setup Tool
-After you have installed SQL server, you need to run [this tool](https://github.com/rowanlea/RPGModernisationSeries/Tools/DatabaseSetup) to create the tables and dummy data we will use for this project.
+After you have installed SQL server, you need to run [this tool](https://github.com/rowanlea/RPGModernisationSeries/tree/main/Tools/DatabaseSetup) to create the tables and dummy data we will use for this project.
 
 ### MongoDB Setup
 Go here and select the platform of your choice to install [MongoDB Community](https://www.mongodb.com/try/download/community). Run the installer and leave everything default.
