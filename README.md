@@ -9,12 +9,12 @@ As new episodes are released, they will be added to the list below. Whenever cha
 The video series I'm creating will take you through migrating an application from an on-premises host (just Windows desktop, although I will be covering IIS migration on the channel in the future) to cloud hosting in Azure. Together we will go through each step you would typically go through for a migration, and aim to make the migration as typical as possible by using fairly common services in an Azure deployment, such as Azure Functions and Containers for serverless, and CosmosDB for data storage. Beyond this series the channel will explore other service implementations and things that aren't necessarily common for each deployment.
 
 ## Using the Example Projects
-You don't need to download the projects or follow the [setup](https://github.com/rowanlea/RPGModernisationSeries/RPGShopExampleProjects#projectsetup) if you don't want to, they are only there to demonstrate what the functionality looks like.
+You don't need to download the projects or follow the [setup](https://github.com/rowanlea/RPGModernisationSeries/tree/main/RPG%20Shop%20Example%20Projects#project-setup) if you don't want to, they are only there to demonstrate what the functionality looks like.
 
 ## Code Re-usage
 You are welcome to use any of the code, deployment templates, or files provided in this repository for any purpose, including commercial use. You are free to reuse and modify these resources as you see fit.
 
 ## Playlist and Examples
-Video: [Name of feature](www.youtube.com)\
-Project: www.github.com
+Video: [Name of feature](https://www.youtube.com)\
+Project: https://www.github.com
 ___
