@@ -16,7 +16,7 @@ Before proceeding with this installation, it is assumed that you have a basic un
 For this project, I am utilizing .NET 7, which is the most current version at the time of writing. While the project was originally written in .NET 6, there were no issues with upgrading to .NET 7. However, if you prefer to use .NET 6, you can easily make that change by downgrading the version in the project settings.
 
 ### SQL Server Setup
-Go here to install [SQL Server](https://www.microsoft.com/en-gb/sql-server/sql-server-downloads), choose SQL Express.
+Go here to install [SQL Server](https://www.microsoft.com/en-gb/sql-server/sql-server-downloads), choose SQL Express. Select "basic" and accept the defaults.
 
 If you want a convenient way to view your data, consider downloading [SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16) (SSMS). There are plenty of resources available online to help you get started with this tool so I won't go into detail here. I will however provide you with the necessary details for establishing an initial connection upon opening SSMS:
 - Server type = Database engine
@@ -24,10 +24,10 @@ If you want a convenient way to view your data, consider downloading [SQL Server
 - Authentication = Windows authentication
 
 ### Running the Database Setup Tool
-After you have installed SQL server, you need to run [this tool](https://github.com/rowanlea/RPGModernisationSeries/tree/main/Tools/DatabaseSetup) to create the tables and dummy data we will use for this project.
+After you have installed SQL server, you need to run [this tool](https://github.com/rowanlea/RPGModernisationSeries/tree/main/Tools/DatabaseSetup) to create the tables and dummy data we will use for this project (if you've cloned the entire repo you will already have this downloaded).
 
 ### MongoDB Setup
-Go here and select the platform of your choice to install [MongoDB Community](https://www.mongodb.com/try/download/community). Run the installer and leave everything default.
+Go here and select the platform of your choice to install [MongoDB Community](https://www.mongodb.com/try/download/community). Run the installer, select "complete" for the install type, and leave everything default.
 
 The MongoDB installation comes with a useful tool called MongoDBCompass, which allows us to easily view and manage our data. As with SQL Server Management Studio I won't be going into detail on how to use this here, but it's pretty straightforward and simple to understand. I like Compass because it's lightweight and feels nice to use, however if you need something more powerful I suggest Studio 3T.
 
