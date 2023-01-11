@@ -15,6 +15,6 @@ You don't need to download the projects or follow the [setup](https://github.com
 You are welcome to use any of the code, deployment templates, or files provided in this repository for any purpose, including commercial use. You are free to reuse and modify these resources as you see fit.
 
 ## Playlist and Examples
-Video: [Name of feature](https://www.youtube.com)\
-Project: https://www.github.com
+Video: [Azure Migration Series Overview](https://www.youtube.com/watch?v=8CEtX_638o0)\
+Project: https://bit.ly/azure-modernisation-1
 ___
