@@ -10,7 +10,7 @@ namespace RPGShop
         internal NoSQLDatabase()
         {
             _dbClient = new MongoClient("mongodb://localhost:27017");
-            _database = _dbClient.GetDatabase("Sales");
+            _database = _dbClient.GetDatabase("Sales");fail
         }
 
         internal void MakeSale(Sale sale)
