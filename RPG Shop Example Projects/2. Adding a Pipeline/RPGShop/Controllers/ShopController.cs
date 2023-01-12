@@ -14,7 +14,7 @@ namespace RPGShop.Controllers
         {
             _sqlDb = new SQLDatabase();
             _noSqlDb = new NoSQLDatabase();
-            _logger = new FileLogger("C:/RPGLogs/log.txt");gedrgerdfgfer
+            _logger = new FileLogger("C:/RPGLogs/log.txt");
         }
 
         [HttpGet]
