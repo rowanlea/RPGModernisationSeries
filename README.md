@@ -18,3 +18,6 @@ You are welcome to use any of the code, deployment templates, or files provided 
 Video: [Azure Migration Series Overview](https://www.youtube.com/watch?v=8CEtX_638o0)\
 Project: https://bit.ly/azure-modernisation-1
 ___
+Video: [Creating an Azure DevOps Pipeline](https://www.youtube.com/watch?v=VXa3QVtSBTU)\
+Project: https://bit.ly/azure-modernisation-2
+___
