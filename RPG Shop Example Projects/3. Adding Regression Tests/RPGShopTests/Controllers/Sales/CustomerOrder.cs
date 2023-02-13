@@ -1,4 +1,4 @@
-﻿namespace RPGShopTests
+﻿namespace RPGShopTests.Controllers.Sales
 {
     public class CustomerOrder
     {

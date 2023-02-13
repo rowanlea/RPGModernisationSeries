@@ -1,10 +1,11 @@
-using FluentAssertions;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
 using NSubstitute;
-using System.Net.Http.Json;
+using System.Text.Json;
 
-namespace RPGShopTests
+namespace RPGShopTests.Controllers.Sales
 {
-    public class SellItemsToCustomerTests
+    internal class SellItemsToCustomerTests
     {
         private readonly ShopApiFactory _factory;
 
@@ -41,26 +42,41 @@ namespace RPGShopTests
             HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
 
             // Assert
-            if (isTab)
+            if(isTab)
                 noSqlDatabase.Received().AddToTab(Arg.Is<RPGShop.Tab>(x => x.Items.First().Name == "Steel Sword"));
             else
                 noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Sale>(x => x.Items.First().Name == "Steel Sword"));
         }
 
-        //[Test]
-        //public async Task WhenSubmittingBadItemsName_ReturnsNotFound()
-        //{
-        //    // Arrange
-        //    var client = _factory.CreateClient();
-        //    CustomerOrder customerOrder = GetFakeCustomerOrder();
-        //    customerOrder.items[0].name = "Bad item name";
+        [Test]
+        public async Task WhenSubmittingMissingCustomerDetails_ReturnsBadRequest()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            CustomerOrder customerOrder = GetFakeCustomerOrder();
+            customerOrder.customerDetails.address = null;
 
-        //    // Act
-        //    HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
+            // Act
+            HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
 
-        //    // Assert
-        //    response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
-        //}
+            // Assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public async Task WhenSubmittingBadItemsName_ReturnsNotFound()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            CustomerOrder customerOrder = GetFakeCustomerOrder();
+            customerOrder.items[0].name = "Bad item name";
+
+            // Act
+            HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
+
+            // Assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        }
 
         private CustomerOrder GetFakeCustomerOrder()
         {
