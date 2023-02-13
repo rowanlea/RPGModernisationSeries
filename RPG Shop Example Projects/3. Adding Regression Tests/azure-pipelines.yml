@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: 'RPG Shop Example Projects/2. Adding a Pipeline/RPGShop.sln'
+  solution: 'RPG Shop Example Projects/3. Adding Regression Tests/RPGShop.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
