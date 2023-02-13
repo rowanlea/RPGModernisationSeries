@@ -31,4 +31,4 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '{solution}/RPGShopTests/RPGShopTests.csproj'
+    projects: 'RPG Shop Example Projects/3. Adding Regression Tests/RPGShopTests/RPGShopTests.csproj'
