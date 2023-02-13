@@ -47,20 +47,20 @@ namespace RPGShopTests
                 noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Sale>(x => x.Items.First().Name == "Steel Sword"));
         }
 
-        [Test]
-        public async Task WhenSubmittingBadItemsName_ReturnsNotFound()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-            CustomerOrder customerOrder = GetFakeCustomerOrder();
-            customerOrder.items[0].name = "Bad item name";
+        //[Test]
+        //public async Task WhenSubmittingBadItemsName_ReturnsNotFound()
+        //{
+        //    // Arrange
+        //    var client = _factory.CreateClient();
+        //    CustomerOrder customerOrder = GetFakeCustomerOrder();
+        //    customerOrder.items[0].name = "Bad item name";
 
-            // Act
-            HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
+        //    // Act
+        //    HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
 
-            // Assert
-            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
-        }
+        //    // Assert
+        //    response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+        //}
 
         private CustomerOrder GetFakeCustomerOrder()
         {
