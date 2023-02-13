@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: 'RPG Shop Example Projects/2. Adding a Pipeline/RPGShop.sln'
+  solution: 'RPG Shop Example Projects/3. Adding Regression Tests/RPGShop.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -27,3 +27,8 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+  
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'RPG Shop Example Projects/3. Adding Regression Tests/RPGShopTests/RPGShopTests.csproj'
