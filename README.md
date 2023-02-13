@@ -23,3 +23,6 @@ Project: https://bit.ly/azure-modernisation-2
 ___
 Bonus Video: [Bonus #1 - Azure Pipelines Slack Notifications](https://www.youtube.com/watch?v=4CpPnv6kcN0)
 ___
+Video: [Peace of Mind With .NET Regression Tests](https://www.youtube.com/watch?v=4lblB26dRNs)\
+Project: https://bit.ly/azure-modernisation-3
+___
