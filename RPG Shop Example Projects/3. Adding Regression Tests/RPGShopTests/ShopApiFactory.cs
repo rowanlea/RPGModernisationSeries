@@ -40,6 +40,11 @@ namespace RPGShopTests
                 mockedSqlDatabase.GetStockForItem("Bad Item Name").Throws<IndexOutOfRangeException>();
                 mockedSqlDatabase.When(x => x.AddStock("Bad Item Name", 5)).Throw<IndexOutOfRangeException>();
 
+                mockedNoSqlDatabase.GetCustomerByName("Rowan").Returns(GetFakeDetails());
+                mockedNoSqlDatabase.GetCustomerByName("Bad Name").Throws<IndexOutOfRangeException>();
+                mockedNoSqlDatabase.GetSalesHistory().Returns(GetFakeHistory());
+                mockedNoSqlDatabase.GetTabForCustomer("Rowan").Returns(GetFakeTab());
+
                 // Link our mocked databases to their interface types
                 var sqlDescriptor =
                     new ServiceDescriptor(
@@ -82,8 +87,44 @@ namespace RPGShopTests
                 Description = "A basic sword that deals damage to an enemy.",
                 Type = "Equip",
                 Price = 10.99f,
-                Count = 0
+                Count = 1
             };
         }
+
+        private static RPGShop.CustomerDetails GetFakeDetails()
+        {
+            return new RPGShop.CustomerDetails
+            {
+                Name = "Rowan",
+                Address = "Address",
+                PhoneNumber = "123456789"
+            };
+        }
+
+        private List<RPGShop.Sale> GetFakeHistory()
+        {
+            List<RPGShop.Sale> sales = new();
+
+            var items = new List<RPGShop.Item> {
+                GetSteelSwordItem(),
+                GetSteelSwordItem()
+            };
+
+            sales.Add(new Sale { CustomerName = "Rowan", Items = items, Price = 1.1f });
+
+            return sales;
+        }
+
+        private RPGShop.Tab GetFakeTab()
+        {
+            RPGShop.Tab tab = new()
+            {
+                CustomerName = "Rowan",
+                Items = new List<RPGShop.Item> { GetSteelSwordItem(), GetSteelSwordItem() }
+            };
+
+            return tab;
+        }
+
     }
 }

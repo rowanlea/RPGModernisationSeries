@@ -36,7 +36,7 @@ namespace RPGShopTests.Controllers.Stock
             foundItems[0].Description.Should().Be("A basic sword that deals damage to an enemy.");
             foundItems[0].Type.Should().Be("Equip");
             foundItems[0].Price.Should().Be(10.99f);
-            foundItems[0].Count.Should().Be(0);
+            foundItems[0].Count.Should().Be(1);
         }
     }
 }
