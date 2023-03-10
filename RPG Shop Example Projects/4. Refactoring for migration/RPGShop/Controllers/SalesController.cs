@@ -1,104 +1,24 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace RPGShop.Controllers
 {
+    [Route("Shop/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class ShopController : ControllerBase
+    public class SalesController : ControllerBase
     {
         private ISqlDatabase _sqlDb;
         private INoSqlDatabase _noSqlDb;
         private FileLogger _logger;
 
-        public ShopController(ISqlDatabase sqlDb, INoSqlDatabase noSql)
+        public SalesController(ISqlDatabase sqlDb, INoSqlDatabase noSql)
         {
             _sqlDb = sqlDb;
             _noSqlDb = noSql;
             _logger = new FileLogger("C:/RPGLogs/log.txt");
         }
 
-        [HttpGet]
-        [Route("Stock/GetAllItems")]
-        public IActionResult GetAllItems()
-        {
-            try
-            {
-                var items = _sqlDb.GetAllItems();
-                return Ok(items);
-            }
-            catch (Exception e)
-            {
-                _logger.Log(e.Message);
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("Stock/GetItemByName")]
-        public IActionResult GetItemByName(string name)
-        {
-            try
-            {
-                var item = _sqlDb.GetItemByName(name);
-                return Ok(item);
-            }
-            catch (Exception e)
-            {
-                _logger.Log(e.Message);
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("Stock/GetItemsByType")]
-        public IActionResult GetItemsByType(string type)
-        {
-            try
-            {
-                var items = _sqlDb.GetItemsbyType(type);
-                return Ok(items);
-            }
-            catch (Exception e)
-            {
-                _logger.Log(e.Message);
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("Stock/GetStockForItem")]
-        public IActionResult GetStockForItem(string itemName)
-        {
-            try
-            {
-                var stockCount = _sqlDb.GetStockForItem(itemName);
-                return Ok(stockCount);
-            }
-            catch (Exception e)
-            {
-                _logger.Log(e.Message);
-                return NotFound();
-            }
-        }
-
         [HttpPost]
-        [Route("Stock/Restock")]
-        public IActionResult Restock(string itemName, int numberToRestock)
-        {
-            try
-            {
-                _sqlDb.AddStock(itemName, numberToRestock);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.Log(e.Message);
-                return NotFound();
-            }
-        }
-
-        [HttpPost]
-        [Route("Sales/SellItemsToCustomer")]
+        [Route("SellItemsToCustomer")]
         public IActionResult SellItemsToCustomer(CustomerOrder customerOrder)
         {
             try
@@ -133,7 +53,7 @@ namespace RPGShop.Controllers
         }
 
         [HttpGet]
-        [Route("Sales/GetSalesHistory")]
+        [Route("GetSalesHistory")]
         public IActionResult GetSalesHistory()
         {
             try
@@ -149,7 +69,7 @@ namespace RPGShop.Controllers
         }
 
         [HttpPost]
-        [Route("Sales/PayTab")]
+        [Route("PayTab")]
         public IActionResult PayTab(string customerName)
         {
             try
@@ -176,7 +96,7 @@ namespace RPGShop.Controllers
         }
 
         [HttpGet]
-        [Route("Sales/GetCustomerDetails")]
+        [Route("GetCustomerDetails")]
         public IActionResult GetCustomerDetails(string customerName)
         {
             try

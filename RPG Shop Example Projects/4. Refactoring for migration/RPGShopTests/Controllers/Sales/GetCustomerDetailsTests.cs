@@ -38,7 +38,6 @@ namespace RPGShopTests.Controllers.Sales
         {
             // Arrange
             var client = _factory.CreateClient();
-            CustomerDetails foundDetails = new();
 
             // Act
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Sales/GetCustomerDetails?customerName=Bad%20Name");
