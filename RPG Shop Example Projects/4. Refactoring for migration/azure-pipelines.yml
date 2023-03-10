@@ -4,13 +4,13 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- main
+- '*'
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: 'RPG Shop Example Projects/3. Adding Regression Tests/RPGShop.sln'
+  solution: 'RPG Shop Example Projects/4. Refactoring for migration/RPGShop.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -31,4 +31,4 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: 'RPG Shop Example Projects/3. Adding Regression Tests/RPGShopTests/RPGShopTests.csproj'
+    projects: 'RPG Shop Example Projects/4. Refactoring for migration/RPGShopTests/RPGShopTests.csproj'
