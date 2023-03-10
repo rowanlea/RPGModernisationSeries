@@ -34,8 +34,8 @@ namespace RPGShop.Controllers
         }
 
         [HttpGet]
-        [Route("Stock/GetItemsByName")]
-        public IActionResult GetItemsByName(string name)
+        [Route("Stock/GetItemByName")]
+        public IActionResult GetItemByName(string name)
         {
             try
             {

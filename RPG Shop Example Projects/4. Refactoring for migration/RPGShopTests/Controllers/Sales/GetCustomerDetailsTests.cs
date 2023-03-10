@@ -44,7 +44,7 @@ namespace RPGShopTests.Controllers.Sales
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Sales/GetCustomerDetails?customerName=Bad%20Name");
 
             // Assert
-            //response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
     }
 }
