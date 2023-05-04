@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using RPGShop.Database;
 
-namespace RPGShopTests
+namespace RPGShop.IntegrationTests
 {
     internal class SQLDatabaseTests
     {
