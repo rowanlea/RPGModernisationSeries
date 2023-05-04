@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace RPGShop
+namespace RPGShop.Model
 {
     [BsonIgnoreExtraElements]
     public class Item

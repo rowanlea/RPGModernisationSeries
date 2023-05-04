@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NSubstitute;
+using RPGShop.Model;
 using System.Text.Json;
 
 namespace RPGShopTests.Controllers.Sales
@@ -43,9 +44,9 @@ namespace RPGShopTests.Controllers.Sales
 
             // Assert
             if(isTab)
-                noSqlDatabase.Received().AddToTab(Arg.Is<RPGShop.Tab>(x => x.Items.First().Name == "Steel Sword"));
+                noSqlDatabase.Received().AddToTab(Arg.Is<Tab>(x => x.Items.First().Name == "Steel Sword"));
             else
-                noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Sale>(x => x.Items.First().Name == "Steel Sword"));
+                noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Model.Sale>(x => x.Items.First().Name == "Steel Sword"));
         }
 
         [Test]

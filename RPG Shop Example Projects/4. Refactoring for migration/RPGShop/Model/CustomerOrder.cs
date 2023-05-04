@@ -1,4 +1,4 @@
-﻿namespace RPGShop
+﻿namespace RPGShop.Model
 {
     public class CustomerOrder
     {

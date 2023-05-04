@@ -1,4 +1,4 @@
-﻿namespace RPGShop
+﻿namespace RPGShop.Logging
 {
     public class FileLogger
     {

@@ -1,7 +1,8 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using RPGShop.Model;
 
-namespace RPGShop
+namespace RPGShop.Database
 {
     public class SQLDatabase : ISqlDatabase
     {

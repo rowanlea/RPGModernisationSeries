@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RPGShop.Database;
+using RPGShop.Logging;
+using RPGShop.Model;
 
 namespace RPGShop.Controllers
 {

@@ -56,7 +56,7 @@ namespace RPGShopTests.Controllers.Sales
             HttpResponseMessage response = await client.PostAsync("https://localhost:7131/Shop/Sales/PayTab?customerName=Rowan", content);
 
             // Assert
-            noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Sale>(x => x.Price == 21.98f));
+            noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Model.Sale>(x => x.Price == 21.98f));
         }
 
         [Test]

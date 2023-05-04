@@ -1,4 +1,4 @@
-using RPGShop;
+using RPGShop.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,12 +1,11 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace RPGShop
+namespace RPGShop.Model
 {
     [BsonIgnoreExtraElements]
-    public class Sale
+    public class Tab
     {
         public string CustomerName { get; set; }
         public List<Item> Items { get; set; } = new List<Item>();
-        public double Price { get; set; }
     }
 }

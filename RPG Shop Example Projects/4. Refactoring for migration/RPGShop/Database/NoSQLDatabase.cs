@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
+using RPGShop.Model;
 
-namespace RPGShop
+namespace RPGShop.Database
 {
     public class NoSQLDatabase : INoSqlDatabase
     {

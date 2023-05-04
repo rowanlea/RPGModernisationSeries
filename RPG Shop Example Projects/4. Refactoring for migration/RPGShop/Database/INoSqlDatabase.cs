@@ -1,4 +1,6 @@
-﻿namespace RPGShop
+﻿using RPGShop.Model;
+
+namespace RPGShop.Database
 {
     public interface INoSqlDatabase
     {
