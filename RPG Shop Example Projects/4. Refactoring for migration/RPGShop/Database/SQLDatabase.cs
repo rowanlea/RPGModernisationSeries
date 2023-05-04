@@ -1,14 +1,15 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 using RPGShop.Model;
 
 namespace RPGShop.Database
 {
     public class SQLDatabase : ISqlDatabase
     {
-        private string _dbConnectionString = @"Server=localhost\SQLEXPRESS;Database=Inventory;Trusted_Connection=True;";
-        private SqlConnection _dbConnection;
-        private SqlServerResponseParser _parser;
+        private readonly string _dbConnectionString = @"Server=localhost\SQLEXPRESS;Database=Inventory;Trusted_Connection=True;";
+        private readonly SqlConnection _dbConnection;
+        private readonly SqlServerResponseParser _parser;
 
         public SQLDatabase()
         {
@@ -38,7 +39,7 @@ namespace RPGShop.Database
             INNER JOIN ItemType ON Items.TypeID = ItemType.ID
             WHERE Items.Name = @Name;";
 
-            List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter("@Name", itemName) };
+            List<SqlParameter> parameters = new() { new SqlParameter("@Name", itemName) };
             DataTable dataTable = QueryDatabase(query, parameters);
             Item item = _parser.GetItemFromDataTable(dataTable);
             return item;
@@ -52,7 +53,7 @@ namespace RPGShop.Database
             INNER JOIN ItemType ON Items.TypeID = ItemType.ID
             WHERE ItemType.Type = @Type;";
 
-            List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter("@Type", typeName) };
+            List<SqlParameter> parameters = new() { new SqlParameter("@Type", typeName) };
             DataTable dataTable = QueryDatabase(query, parameters);
             List<Item> itemList = _parser.GetItemListFromDataTable(dataTable);
             return itemList;
@@ -64,9 +65,9 @@ namespace RPGShop.Database
             INNER JOIN Items ON Stock.ItemID = Items.ID
             WHERE Items.Name = @Name;";
 
-            List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter("@Name", itemName) };
+            List<SqlParameter> parameters = new() { new SqlParameter("@Name", itemName) };
             DataTable dataTable = QueryDatabase(query, parameters);
-            int stockCount = _parser.GetCountFromDataTable(dataTable);
+            int stockCount = SqlServerResponseParser.GetCountFromDataTable(dataTable);
             return stockCount;
         }
 
@@ -89,28 +90,27 @@ namespace RPGShop.Database
             INNER JOIN Items ON Stock.ItemID = Items.ID
             WHERE Items.Name = '{itemName}';";
 
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
-            {
-                _dbConnection.Open();
-                command.ExecuteNonQuery();
-                _dbConnection.Close();
-            }
+            using SqlCommand command = new(query, _dbConnection);
+            _dbConnection.Open();
+            command.ExecuteNonQuery();
+            _dbConnection.Close();
         }
 
-        private DataTable QueryDatabase(string query, List<SqlParameter> parameters = null)
+        private DataTable QueryDatabase(string query, List<SqlParameter>? parameters = default)
         {
-            DataTable dataTable = new DataTable();
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
+            ArgumentNullException.ThrowIfNull(query);
+            ArgumentNullException.ThrowIfNull(parameters);
+
+            DataTable dataTable = new ();
+            using (SqlCommand command = new(query, _dbConnection))
             {
                 foreach (SqlParameter parameter in parameters)
                 {
                     command.Parameters.AddWithValue(parameter.Name, parameter.Value);
                 }
 
-                using (SqlDataAdapter reader = new SqlDataAdapter(command))
-                {
-                    reader.Fill(dataTable);
-                }
+                using SqlDataAdapter reader = new(command);
+                reader.Fill(dataTable);
             }
 
             return dataTable;

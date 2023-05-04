@@ -2,6 +2,7 @@
 using RPGShop.Database;
 using RPGShop.Logging;
 using RPGShop.Model;
+using System.Xml.Linq;
 
 namespace RPGShop.Controllers
 {
@@ -9,9 +10,9 @@ namespace RPGShop.Controllers
     [ApiController]
     public class SalesController : ControllerBase
     {
-        private ISqlDatabase _sqlDb;
-        private INoSqlDatabase _noSqlDb;
-        private FileLogger _logger;
+        private readonly ISqlDatabase _sqlDb;
+        private readonly INoSqlDatabase _noSqlDb;
+        private readonly FileLogger _logger;
 
         public SalesController(ISqlDatabase sqlDb, INoSqlDatabase noSql)
         {
@@ -111,13 +112,15 @@ namespace RPGShop.Controllers
             _noSqlDb.AddCustomerDetails(customerOrder.CustomerDetails);
         }
 
-        private void IncreaseTotalPrice(ref double price, Item item, Item foundItem)
+        private static void IncreaseTotalPrice(ref double price, Item item, Item foundItem)
         {
             price += foundItem.Price * item.Count;
         }
 
         private Item SellItem(Item item)
         {
+            ArgumentNullException.ThrowIfNull(item.Name);
+
             var foundItem = _sqlDb.GetItemByName(item.Name);
             _sqlDb.RemoveStock(item.Name, item.Count);
             return foundItem;
@@ -135,6 +138,7 @@ namespace RPGShop.Controllers
             double totalPrice = 0;
             foreach (var item in tab.Items)
             {
+                ArgumentNullException.ThrowIfNull(item.Name);
                 var foundItem = _sqlDb.GetItemByName(item.Name);
                 IncreaseTotalPrice(ref totalPrice, item, foundItem);
             }

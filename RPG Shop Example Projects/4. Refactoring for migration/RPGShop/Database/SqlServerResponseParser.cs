@@ -21,7 +21,7 @@ namespace RPGShop.Database
         public Item GetItemFromDataTable(DataTable dataTable)
         {
             DataRow row = dataTable.Rows[0];
-            Item item = new Item()
+            Item item = new()
             {
                 Id = Convert.ToInt32(row["Id"]),
                 Name = row["Name"].ToString(),
@@ -32,7 +32,7 @@ namespace RPGShop.Database
             return item;
         }
 
-        internal int GetCountFromDataTable(DataTable dataTable)
+        internal static int GetCountFromDataTable(DataTable dataTable)
         {
             return (int)dataTable.Rows[0][0];
         }

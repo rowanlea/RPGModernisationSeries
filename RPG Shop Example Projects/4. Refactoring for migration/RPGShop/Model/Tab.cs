@@ -5,7 +5,7 @@ namespace RPGShop.Model
     [BsonIgnoreExtraElements]
     public class Tab
     {
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
         public List<Item> Items { get; set; } = new List<Item>();
     }
 }

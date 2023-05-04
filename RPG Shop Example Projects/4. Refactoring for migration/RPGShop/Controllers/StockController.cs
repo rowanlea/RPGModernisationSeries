@@ -8,8 +8,8 @@ namespace RPGShop.Controllers
     [Route("Shop/[controller]")]
     public class StockController : ControllerBase
     {
-        private ISqlDatabase _sqlDb;
-        private FileLogger _logger;
+        private readonly ISqlDatabase _sqlDb;
+        private readonly FileLogger _logger;
 
         public StockController(ISqlDatabase sqlDb)
         {

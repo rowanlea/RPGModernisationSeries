@@ -30,7 +30,7 @@ namespace RPGShopTests.Controllers.Sales
             }
 
             // Assert
-            foundDetails.name.Should().Be("Rowan");
+            foundDetails.Name.Should().Be("Rowan");
         }
 
         [Test]

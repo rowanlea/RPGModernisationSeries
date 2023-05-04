@@ -13,12 +13,6 @@ namespace RPGShopTests.Controllers.Stock
             _factory = new ShopApiFactory();
         }
 
-        private class Outbound
-        {
-            public string itemName { get; set; }
-            public int numberToRestock { get; set; }
-        }
-
         [Test]
         public async Task WhenCallingRestockOnSword_ReturnsSuccess()
         {

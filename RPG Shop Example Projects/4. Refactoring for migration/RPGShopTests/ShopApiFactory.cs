@@ -12,8 +12,8 @@ namespace RPGShopTests
 {
     internal class ShopApiFactory : WebApplicationFactory<Program>
     {
-        ISqlDatabase mockedSqlDatabase;
-        INoSqlDatabase mockedNoSqlDatabase;
+        private readonly ISqlDatabase mockedSqlDatabase;
+        private readonly INoSqlDatabase mockedNoSqlDatabase;
 
         public ShopApiFactory()
         {
@@ -68,7 +68,7 @@ namespace RPGShopTests
             return mockedNoSqlDatabase;
         }
 
-        private List<RPGShop.Model.Item> GetFakeItems()
+        private static List<RPGShop.Model.Item> GetFakeItems()
         {
             // Set up item array with 100 empty values
             RPGShop.Model.Item[] itemList = new RPGShop.Model.Item[100];
@@ -102,7 +102,7 @@ namespace RPGShopTests
             };
         }
 
-        private List<Sale> GetFakeHistory()
+        private static List<Sale> GetFakeHistory()
         {
             List<Sale> sales = new();
 
@@ -116,7 +116,7 @@ namespace RPGShopTests
             return sales;
         }
 
-        private Tab GetFakeTab()
+        private static Tab GetFakeTab()
         {
             Tab tab = new()
             {

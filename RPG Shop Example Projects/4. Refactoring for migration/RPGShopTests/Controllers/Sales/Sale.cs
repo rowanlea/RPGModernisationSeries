@@ -2,8 +2,8 @@
 {
     public class Sale
     {
-        public string customerName { get; set; }
-        public RPGShop.Model.Item[] items { get; set; }
-        public float price { get; set; }
+        public string? CustomerName { get; set; }
+        public RPGShop.Model.Item[] Items { get; set; } = Array.Empty<RPGShop.Model.Item>();
+        public float Price { get; set; }
     }
 }

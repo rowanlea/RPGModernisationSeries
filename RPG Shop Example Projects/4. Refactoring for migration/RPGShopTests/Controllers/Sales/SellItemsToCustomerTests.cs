@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using NSubstitute;
 using RPGShop.Model;
-using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace RPGShopTests.Controllers.Sales
 {
@@ -37,7 +36,7 @@ namespace RPGShopTests.Controllers.Sales
             var client = _factory.CreateClient();
             var noSqlDatabase = _factory.GetMockedNoSql();
             CustomerOrder customerOrder = GetFakeCustomerOrder();
-            customerOrder.isTab = isTab;
+            customerOrder.IsTab = isTab;
 
             // Act
             HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
@@ -55,7 +54,9 @@ namespace RPGShopTests.Controllers.Sales
             // Arrange
             var client = _factory.CreateClient();
             CustomerOrder customerOrder = GetFakeCustomerOrder();
-            customerOrder.customerDetails.address = null;
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            customerOrder.CustomerDetails.Address = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             // Act
             HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
@@ -70,7 +71,7 @@ namespace RPGShopTests.Controllers.Sales
             // Arrange
             var client = _factory.CreateClient();
             CustomerOrder customerOrder = GetFakeCustomerOrder();
-            customerOrder.items[0].name = "Bad item name";
+            customerOrder.Items[0].Name = "Bad item name";
 
             // Act
             HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7131/Shop/Sales/SellItemsToCustomer", customerOrder);
@@ -79,19 +80,21 @@ namespace RPGShopTests.Controllers.Sales
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
 
-        private CustomerOrder GetFakeCustomerOrder()
+        private static CustomerOrder GetFakeCustomerOrder()
         {
-            CustomerOrder customerOrder = new();
+            CustomerOrder customerOrder = new()
+            {
+                // Set up customer details
+                CustomerDetails = new Customerdetails { Address = "fake", Name = "fake", PhoneNumber = "fake" },
 
-            // Set up customer details
-            customerOrder.customerDetails = new Customerdetails { address = "fake", name = "fake", phoneNumber = "fake" };
+                // Set up items being sold
+                Items = new Item[1]
+            };
 
-            // Set up items being sold
-            customerOrder.items = new Item[1];
-            customerOrder.items[0] = new Item { name = "Steel Sword", count = 1, description = "fake", type = "Equip" };
+            customerOrder.Items[0] = new Item { Name = "Steel Sword", Count = 1, Description = "fake", Type = "Equip" };
 
             // Is the order to be added to the customer's tab?
-            customerOrder.isTab = false;
+            customerOrder.IsTab = false;
 
             return customerOrder;
         }

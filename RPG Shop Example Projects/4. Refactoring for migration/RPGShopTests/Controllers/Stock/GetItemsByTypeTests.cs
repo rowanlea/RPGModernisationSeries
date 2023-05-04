@@ -18,7 +18,7 @@ namespace RPGShopTests.Controllers.Stock
         {
             // Arrange
             var client = _factory.CreateClient();
-            Item[] foundItem = new Item[0];
+            Item[] foundItem = Array.Empty<Item>();
 
             // Act
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetItemsByType?type=Equip");

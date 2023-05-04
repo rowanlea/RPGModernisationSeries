@@ -2,26 +2,26 @@
 {
     public class CustomerOrder
     {
-        public Item[] items { get; set; }
-        public Customerdetails customerDetails { get; set; }
-        public bool isTab { get; set; }
+        public Item[] Items { get; set; } = null!;
+        public Customerdetails CustomerDetails { get; set; } = null!;
+        public bool IsTab { get; set; } = false;
     }
 
     public class Customerdetails
     {
-        public string name { get; set; }
-        public string address { get; set; }
-        public string phoneNumber { get; set; }
+        public string Name { get; set; } = null!;
+        public string Address { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;
     }
 
     public class Item
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string type { get; set; }
-        public int price { get; set; }
-        public int count { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; } = null!;
+        public string? Description { get; set; }
+        public string Type { get; set; } = null!;
+        public int Price { get; set; }
+        public int Count { get; set; }
     }
 
 }

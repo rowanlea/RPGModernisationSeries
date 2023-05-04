@@ -5,8 +5,8 @@ namespace RPGShop.Database
 {
     public class NoSQLDatabase : INoSqlDatabase
     {
-        MongoClient _dbClient;
-        IMongoDatabase _database;
+        private readonly MongoClient _dbClient;
+        private readonly IMongoDatabase _database;
 
         public NoSQLDatabase()
         {
