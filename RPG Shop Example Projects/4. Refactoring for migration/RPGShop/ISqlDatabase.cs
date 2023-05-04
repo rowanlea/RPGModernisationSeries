@@ -1,13 +1,10 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-
-namespace RPGShop
+﻿namespace RPGShop
 {
     public interface ISqlDatabase
     {
-        List<Item> GetAllItems();
+        IEnumerable<Item> GetAllItems();
         Item GetItemByName(string itemName);
-        List<Item> GetItemsbyType(string typeName);
+        IEnumerable<Item> GetItemsbyType(string typeName);
         int GetStockForItem(string itemName);
         void AddStock(string itemName, int numberOfStockToAdd);
         void RemoveStock(string itemName, int numberOfStockToRemove);

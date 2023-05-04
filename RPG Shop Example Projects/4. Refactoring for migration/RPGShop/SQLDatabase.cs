@@ -13,7 +13,7 @@ namespace RPGShop
             _dbConnection = new SqlConnection(_dbConnectionString);
         }
 
-        public List<Item> GetAllItems()
+        public IEnumerable<Item> GetAllItems()
         {
             string query = @"SELECT Items.ID, Items.Name, Items.Price, Descriptions.Description, ItemType.Type
             FROM Items
@@ -72,7 +72,7 @@ namespace RPGShop
             return item;
         }
 
-        public List<Item> GetItemsbyType(string typeName)
+        public IEnumerable<Item> GetItemsbyType(string typeName)
         {
             string query = @"SELECT Items.ID, Items.Name, Items.Price, Descriptions.Description, ItemType.Type
             FROM Items

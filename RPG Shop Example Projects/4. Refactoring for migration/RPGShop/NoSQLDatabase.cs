@@ -19,7 +19,7 @@ namespace RPGShop
             collection.InsertOne(sale);
         }
 
-        public List<Sale> GetSalesHistory()
+        public IEnumerable<Sale> GetSalesHistory()
         {
             var collection = _database.GetCollection<Sale>("SalesHistory");
             var salesHistory = collection.Find(_ => true);
