@@ -8,10 +8,12 @@ namespace RPGShop.Database
     {
         private string _dbConnectionString = @"Server=localhost\SQLEXPRESS;Database=Inventory;Trusted_Connection=True;";
         private SqlConnection _dbConnection;
+        private SqlServerResponseParser _parser;
 
         public SQLDatabase()
         {
             _dbConnection = new SqlConnection(_dbConnectionString);
+            _parser = new();
         }
 
         public IEnumerable<Item> GetAllItems()
@@ -21,27 +23,12 @@ namespace RPGShop.Database
             INNER JOIN Descriptions ON Items.DescriptionID = Descriptions.ID
             INNER JOIN ItemType ON Items.TypeID = ItemType.ID;";
 
-            DataTable dataTable = new DataTable();
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
-            {
-                using (SqlDataAdapter reader = new SqlDataAdapter(command))
-                {
-                    reader.Fill(dataTable);
-                }
-            }
-            List<Item> itemList = new List<Item>();
-            itemList = (from DataRow row in dataTable.Rows
-                        select new Item()
-                        {
-                            Id = Convert.ToInt32(row["Id"]),
-                            Name = row["Name"].ToString(),
-                            Description = row["Description"].ToString(),
-                            Type = row["Type"].ToString(),
-                            Price = Convert.ToDouble(row["Price"].ToString())
-                        }).ToList();
-
+            DataTable dataTable = QueryDatabase(query);
+            List<Item> itemList = _parser.GetItemListFromDataTable(dataTable);
             return itemList;
         }
+
+        
 
         public Item GetItemByName(string itemName)
         {
@@ -51,25 +38,9 @@ namespace RPGShop.Database
             INNER JOIN ItemType ON Items.TypeID = ItemType.ID
             WHERE Items.Name = @Name;";
 
-            DataTable dataTable = new DataTable();
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
-            {
-                command.Parameters.AddWithValue("@Name", itemName);
-
-                using (SqlDataAdapter reader = new SqlDataAdapter(command))
-                {
-                    reader.Fill(dataTable);
-                }
-            }
-            var row = dataTable.Rows[0];
-            var item = new Item()
-            {
-                Id = Convert.ToInt32(row["Id"]),
-                Name = row["Name"].ToString(),
-                Description = row["Description"].ToString(),
-                Type = row["Type"].ToString(),
-                Price = Convert.ToDouble(row["Price"].ToString())
-            };
+            List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter("@Name", itemName) };
+            DataTable dataTable = QueryDatabase(query, parameters);
+            Item item = _parser.GetItemFromDataTable(dataTable);
             return item;
         }
 
@@ -81,28 +52,9 @@ namespace RPGShop.Database
             INNER JOIN ItemType ON Items.TypeID = ItemType.ID
             WHERE ItemType.Type = @Type;";
 
-            DataTable dataTable = new DataTable();
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
-            {
-                command.Parameters.AddWithValue("@Type", typeName);
-
-                using (SqlDataAdapter reader = new SqlDataAdapter(command))
-                {
-                    reader.Fill(dataTable);
-                }
-            }
-
-            List<Item> itemList = new List<Item>();
-            itemList = (from DataRow row in dataTable.Rows
-                        select new Item()
-                        {
-                            Id = Convert.ToInt32(row["Id"]),
-                            Name = row["Name"].ToString(),
-                            Description = row["Description"].ToString(),
-                            Type = row["Type"].ToString(),
-                            Price = Convert.ToDouble(row["Price"].ToString())
-                        }).ToList();
-
+            List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter("@Type", typeName) };
+            DataTable dataTable = QueryDatabase(query, parameters);
+            List<Item> itemList = _parser.GetItemListFromDataTable(dataTable);
             return itemList;
         }
 
@@ -112,18 +64,10 @@ namespace RPGShop.Database
             INNER JOIN Items ON Stock.ItemID = Items.ID
             WHERE Items.Name = @Name;";
 
-            DataTable dataTable = new DataTable();
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
-            {
-                command.Parameters.AddWithValue("@Name", itemName);
-
-
-                using (SqlDataAdapter reader = new SqlDataAdapter(command))
-                {
-                    reader.Fill(dataTable);
-                }
-            }
-            return (int)dataTable.Rows[0][0];
+            List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter("@Name", itemName) };
+            DataTable dataTable = QueryDatabase(query, parameters);
+            int stockCount = _parser.GetCountFromDataTable(dataTable);
+            return stockCount;
         }
 
         public void AddStock(string itemName, int numberOfStockToAdd)
@@ -151,6 +95,25 @@ namespace RPGShop.Database
                 command.ExecuteNonQuery();
                 _dbConnection.Close();
             }
+        }
+
+        private DataTable QueryDatabase(string query, List<SqlParameter> parameters = null)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlCommand command = new SqlCommand(query, _dbConnection))
+            {
+                foreach (SqlParameter parameter in parameters)
+                {
+                    command.Parameters.AddWithValue(parameter.Name, parameter.Value);
+                }
+
+                using (SqlDataAdapter reader = new SqlDataAdapter(command))
+                {
+                    reader.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
         }
     }
 }

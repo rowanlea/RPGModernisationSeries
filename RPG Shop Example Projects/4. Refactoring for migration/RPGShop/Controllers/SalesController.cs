@@ -26,25 +26,15 @@ namespace RPGShop.Controllers
         {
             try
             {
-                double price = 0;
+                double totalPrice = 0;
 
                 foreach (var item in customerOrder.Items)
                 {
-                    var foundItem = _sqlDb.GetItemByName(item.Name);
-                    _sqlDb.RemoveStock(item.Name, item.Count);
-                    price += foundItem.Price * item.Count;
+                    Item foundItem = SellItem(item);
+                    IncreaseTotalPrice(ref totalPrice, item, foundItem);
                 }
 
-                if (customerOrder.IsTab)
-                {
-                    _noSqlDb.AddToTab(new Tab { Items = customerOrder.Items, CustomerName = customerOrder.CustomerDetails.Name });
-                }
-                else
-                {
-                    _noSqlDb.MakeSale(new Sale { Items = customerOrder.Items, CustomerName = customerOrder.CustomerDetails.Name, Price = price });
-                }
-
-                _noSqlDb.AddCustomerDetails(customerOrder.CustomerDetails);
+                ProcessCustomerOrder(customerOrder, totalPrice);
 
                 return Ok();
             }
@@ -79,16 +69,9 @@ namespace RPGShop.Controllers
             {
                 var tab = _noSqlDb.GetTabForCustomer(customerName);
 
-                double price = 0;
-                foreach (var item in tab.Items)
-                {
-                    var foundItem = _sqlDb.GetItemByName(item.Name);
-                    price += foundItem.Price * item.Count;
-                }
+                double totalPrice = CalculateTotalPrice(tab);
+                MakeSale(customerName, tab, totalPrice);
 
-                var sale = new Sale { Items = tab.Items, CustomerName = customerName, Price = price };
-                _noSqlDb.MakeSale(sale);
-                _noSqlDb.RemoveFromTab(customerName);
                 return Ok();
             }
             catch (Exception e)
@@ -112,6 +95,51 @@ namespace RPGShop.Controllers
                 _logger.Log(e.Message);
                 return NotFound();
             }
+        }
+
+        private void ProcessCustomerOrder(CustomerOrder customerOrder, double totalPrice)
+        {
+            if (customerOrder.IsTab)
+            {
+                _noSqlDb.AddToTab(new Tab { Items = customerOrder.Items, CustomerName = customerOrder.CustomerDetails.Name });
+            }
+            else
+            {
+                _noSqlDb.MakeSale(new Sale { Items = customerOrder.Items, CustomerName = customerOrder.CustomerDetails.Name, Price = totalPrice });
+            }
+
+            _noSqlDb.AddCustomerDetails(customerOrder.CustomerDetails);
+        }
+
+        private void IncreaseTotalPrice(ref double price, Item item, Item foundItem)
+        {
+            price += foundItem.Price * item.Count;
+        }
+
+        private Item SellItem(Item item)
+        {
+            var foundItem = _sqlDb.GetItemByName(item.Name);
+            _sqlDb.RemoveStock(item.Name, item.Count);
+            return foundItem;
+        }
+
+        private void MakeSale(string customerName, Tab tab, double totalPrice)
+        {
+            var sale = new Sale { Items = tab.Items, CustomerName = customerName, Price = totalPrice };
+            _noSqlDb.MakeSale(sale);
+            _noSqlDb.RemoveFromTab(customerName);
+        }
+
+        private double CalculateTotalPrice(Tab tab)
+        {
+            double totalPrice = 0;
+            foreach (var item in tab.Items)
+            {
+                var foundItem = _sqlDb.GetItemByName(item.Name);
+                IncreaseTotalPrice(ref totalPrice, item, foundItem);
+            }
+
+            return totalPrice;
         }
     }
 }
