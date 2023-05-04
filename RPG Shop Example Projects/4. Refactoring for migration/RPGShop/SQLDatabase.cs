@@ -127,26 +127,19 @@ namespace RPGShop
 
         public void AddStock(string itemName, int numberOfStockToAdd)
         {
-            string query = @$"
-            UPDATE Stock
-            SET Stock.Count = Stock.Count + '{numberOfStockToAdd}'
-            FROM Stock
-            INNER JOIN Items ON Stock.ItemID = Items.ID
-            WHERE Items.Name = '{itemName}';";
-
-            using (SqlCommand command = new SqlCommand(query, _dbConnection))
-            {
-                _dbConnection.Open();
-                command.ExecuteNonQuery();
-                _dbConnection.Close();
-            }
+            UpdateStock(itemName, numberOfStockToAdd);
         }
 
         public void RemoveStock(string itemName, int numberOfStockToRemove)
         {
+            UpdateStock(itemName, -numberOfStockToRemove);
+        }
+
+        private void UpdateStock(string itemName, int numberToUpdate)
+        {
             string query = @$"
             UPDATE Stock
-            SET Stock.Count = Stock.Count - '{numberOfStockToRemove}'
+            SET Stock.Count = Stock.Count + '{numberToUpdate}'
             FROM Stock
             INNER JOIN Items ON Stock.ItemID = Items.ID
             WHERE Items.Name = '{itemName}';";
