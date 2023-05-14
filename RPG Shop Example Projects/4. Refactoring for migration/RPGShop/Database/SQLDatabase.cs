@@ -1,7 +1,6 @@
-﻿using System.Data;
+﻿using RPGShop.Model;
+using System.Data;
 using System.Data.SqlClient;
-using System.Xml.Linq;
-using RPGShop.Model;
 
 namespace RPGShop.Database
 {
