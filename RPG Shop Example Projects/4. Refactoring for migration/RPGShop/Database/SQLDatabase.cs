@@ -6,13 +6,13 @@ namespace RPGShop.Database
 {
     public class SQLDatabase : ISqlDatabase
     {
-        private readonly string _dbConnectionString = @"Server=localhost\SQLEXPRESS;Database=Inventory;Trusted_Connection=True;";
         private readonly SqlConnection _dbConnection;
         private readonly SqlServerResponseParser _parser;
 
-        public SQLDatabase()
+        public SQLDatabase(IConfiguration config)
         {
-            _dbConnection = new SqlConnection(_dbConnectionString);
+            string? dbConnectionString = config.GetConnectionString("SqlConnectionString");
+            _dbConnection = new SqlConnection(dbConnectionString);
             _parser = new();
         }
 
@@ -27,8 +27,6 @@ namespace RPGShop.Database
             List<Item> itemList = _parser.GetItemListFromDataTable(dataTable);
             return itemList;
         }
-
-        
 
         public Item GetItemByName(string itemName)
         {

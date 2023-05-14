@@ -8,9 +8,10 @@ namespace RPGShop.Database
         private readonly MongoClient _dbClient;
         private readonly IMongoDatabase _database;
 
-        public NoSQLDatabase()
+        public NoSQLDatabase(IConfiguration config)
         {
-            _dbClient = new MongoClient("mongodb://localhost:27017");
+            string? dbConnectionString = config.GetConnectionString("NoSqlConnectionString");
+            _dbClient = new MongoClient(dbConnectionString);
             _database = _dbClient.GetDatabase("Sales");
         }
 
