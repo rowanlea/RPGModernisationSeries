@@ -22,18 +22,6 @@ steps:
   inputs:
     restoreSolution: '$(projectLocation)/$(solution)'
 
-- task: AzureKeyVault@2
-  inputs:
-    azureSubscription: 'Main Key Vault'
-    KeyVaultName: 'kv-main-app'
-    SecretsFilter: '*'
-    RunAsPreJob: false
-- task: FileTransform@1
-  inputs:
-    folderPath: '$(projectLocation)'
-    fileType: 'json'
-    targetFiles: '**/appsettings.json'
-
 - task: VSBuild@1
   inputs:
     solution: '$(projectLocation)/$(solution)'
