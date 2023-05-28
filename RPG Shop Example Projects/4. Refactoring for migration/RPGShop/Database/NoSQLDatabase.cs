@@ -3,12 +3,12 @@ using RPGShop.Model;
 
 namespace RPGShop.Database
 {
-    public class NoSQLDatabase : INoSqlDatabase
+    public class NoSqlDatabase : INoSqlDatabase
     {
         private readonly MongoClient _dbClient;
         private readonly IMongoDatabase _database;
 
-        public NoSQLDatabase(IConfiguration config)
+        public NoSqlDatabase(IConfiguration config)
         {
             string? dbConnectionString = config.GetConnectionString("NoSqlConnectionString");
             _dbClient = new MongoClient(dbConnectionString);

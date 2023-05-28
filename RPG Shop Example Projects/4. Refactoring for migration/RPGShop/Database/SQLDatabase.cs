@@ -4,12 +4,12 @@ using System.Data.SqlClient;
 
 namespace RPGShop.Database
 {
-    public class SQLDatabase : ISqlDatabase
+    public class SqlDatabase : ISqlDatabase
     {
         private readonly SqlConnection _dbConnection;
         private readonly SqlServerResponseParser _parser;
 
-        public SQLDatabase(IConfiguration config)
+        public SqlDatabase(IConfiguration config)
         {
             string? dbConnectionString = config.GetConnectionString("SqlConnectionString");
             _dbConnection = new SqlConnection(dbConnectionString);

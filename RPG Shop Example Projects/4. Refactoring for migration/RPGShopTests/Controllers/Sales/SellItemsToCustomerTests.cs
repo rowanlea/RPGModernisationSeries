@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using NSubstitute;
 using RPGShop.Model;
+using RPGShopTests.Helpers;
 using System.Net.Http.Json;
 
 namespace RPGShopTests.Controllers.Sales

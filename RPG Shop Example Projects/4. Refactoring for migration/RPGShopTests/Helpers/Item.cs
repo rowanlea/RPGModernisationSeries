@@ -1,4 +1,4 @@
-﻿namespace RPGShopTests
+﻿namespace RPGShopTests.Helpers
 {
     public class Item
     {

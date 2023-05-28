@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Text;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Stock
 {

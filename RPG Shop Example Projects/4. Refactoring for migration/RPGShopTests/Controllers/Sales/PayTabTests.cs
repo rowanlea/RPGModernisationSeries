@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NSubstitute;
+using RPGShopTests.Helpers;
 using System.Text;
 
 namespace RPGShopTests.Controllers.Sales

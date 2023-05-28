@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NSubstitute;
@@ -8,7 +7,7 @@ using NSubstitute.ExceptionExtensions;
 using RPGShop.Database;
 using RPGShop.Model;
 
-namespace RPGShopTests
+namespace RPGShopTests.Helpers
 {
     internal class ShopApiFactory : WebApplicationFactory<Program>
     {
@@ -94,7 +93,7 @@ namespace RPGShopTests
 
         private static CustomerDetails GetFakeDetails()
         {
-            return new RPGShop.Model.CustomerDetails
+            return new CustomerDetails
             {
                 Name = "Rowan",
                 Address = "Address",

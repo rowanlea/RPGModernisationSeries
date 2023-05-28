@@ -8,8 +8,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ISqlDatabase, SQLDatabase>();
-builder.Services.AddTransient<INoSqlDatabase, NoSQLDatabase>();
+builder.Services.AddTransient<ISqlDatabase, SqlDatabase>();
+builder.Services.AddTransient<INoSqlDatabase, NoSqlDatabase>();
 
 var app = builder.Build();
 
