@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
-using RPGShop;
+using RPGShop.Database;
+using RPGShop.Model;
 
-namespace RPGShopTests
+namespace RPGShopTests.Helpers
 {
     internal class ShopApiFactory : WebApplicationFactory<Program>
     {
-        ISqlDatabase mockedSqlDatabase;
-        INoSqlDatabase mockedNoSqlDatabase;
+        private readonly ISqlDatabase mockedSqlDatabase;
+        private readonly INoSqlDatabase mockedNoSqlDatabase;
 
         public ShopApiFactory()
         {
@@ -67,10 +67,10 @@ namespace RPGShopTests
             return mockedNoSqlDatabase;
         }
 
-        private List<RPGShop.Item> GetFakeItems()
+        private static List<RPGShop.Model.Item> GetFakeItems()
         {
             // Set up item array with 100 empty values
-            RPGShop.Item[] itemList = new RPGShop.Item[100];
+            RPGShop.Model.Item[] itemList = new RPGShop.Model.Item[100];
 
             // Set first value to object we are testing against
             itemList[0] = GetSteelSwordItem();
@@ -78,9 +78,9 @@ namespace RPGShopTests
             return itemList.ToList();
         }
 
-        private static RPGShop.Item GetSteelSwordItem()
+        private static RPGShop.Model.Item GetSteelSwordItem()
         {
-            return new RPGShop.Item
+            return new RPGShop.Model.Item
             {
                 Id = 1,
                 Name = "Steel Sword",
@@ -91,9 +91,9 @@ namespace RPGShopTests
             };
         }
 
-        private static RPGShop.CustomerDetails GetFakeDetails()
+        private static CustomerDetails GetFakeDetails()
         {
-            return new RPGShop.CustomerDetails
+            return new CustomerDetails
             {
                 Name = "Rowan",
                 Address = "Address",
@@ -101,11 +101,11 @@ namespace RPGShopTests
             };
         }
 
-        private List<RPGShop.Sale> GetFakeHistory()
+        private static List<Sale> GetFakeHistory()
         {
-            List<RPGShop.Sale> sales = new();
+            List<Sale> sales = new();
 
-            var items = new List<RPGShop.Item> {
+            var items = new List<RPGShop.Model.Item> {
                 GetSteelSwordItem(),
                 GetSteelSwordItem()
             };
@@ -115,12 +115,12 @@ namespace RPGShopTests
             return sales;
         }
 
-        private RPGShop.Tab GetFakeTab()
+        private static Tab GetFakeTab()
         {
-            RPGShop.Tab tab = new()
+            Tab tab = new()
             {
                 CustomerName = "Rowan",
-                Items = new List<RPGShop.Item> { GetSteelSwordItem(), GetSteelSwordItem() }
+                Items = new List<RPGShop.Model.Item> { GetSteelSwordItem(), GetSteelSwordItem() }
             };
 
             return tab;

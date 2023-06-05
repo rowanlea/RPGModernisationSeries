@@ -1,14 +1,15 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Stock
 {
-    internal class GetItemsByNameTests
+    internal class GetItemByNameTests
     {
         private readonly WebApplicationFactory<Program> _factory;
 
-        public GetItemsByNameTests()
+        public GetItemByNameTests()
         {
             _factory = new ShopApiFactory();
         }
@@ -21,7 +22,7 @@ namespace RPGShopTests.Controllers.Stock
             Item foundItem = new();
 
             // Act
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetItemsByName?name=Steel%20Sword");
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetItemByName?name=Steel%20Sword");
 
             if (response.IsSuccessStatusCode)
             {
@@ -45,10 +46,10 @@ namespace RPGShopTests.Controllers.Stock
             var client = _factory.CreateClient();
 
             // Act
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetItemsByName?name=Bad%20Item%20Name");
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetItemByName?name=Bad%20Item%20Name");
 
             // Assert
-            //response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
     }
 }

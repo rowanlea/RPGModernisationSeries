@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Stock
 {
@@ -18,7 +19,7 @@ namespace RPGShopTests.Controllers.Stock
         {
             // Arrange
             var client = _factory.CreateClient();
-            Item[] foundItems = new Item[0];
+            Item[] foundItems = Array.Empty<Item>();
 
             // Act
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetAllItems");

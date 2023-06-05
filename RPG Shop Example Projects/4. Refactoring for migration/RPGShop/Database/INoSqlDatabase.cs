@@ -1,11 +1,11 @@
-﻿using MongoDB.Driver;
+﻿using RPGShop.Model;
 
-namespace RPGShop
+namespace RPGShop.Database
 {
     public interface INoSqlDatabase
     {
         void MakeSale(Sale sale);
-        List<Sale> GetSalesHistory();
+        IEnumerable<Sale> GetSalesHistory();
         void AddToTab(Tab tab);
         Tab GetTabForCustomer(string customerName);
         void RemoveFromTab(string customerName);

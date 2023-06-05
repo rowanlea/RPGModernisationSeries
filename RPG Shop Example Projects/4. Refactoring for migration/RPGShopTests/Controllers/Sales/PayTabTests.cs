@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NSubstitute;
+using RPGShopTests.Helpers;
 using System.Text;
 
 namespace RPGShopTests.Controllers.Sales
@@ -56,7 +57,7 @@ namespace RPGShopTests.Controllers.Sales
             HttpResponseMessage response = await client.PostAsync("https://localhost:7131/Shop/Sales/PayTab?customerName=Rowan", content);
 
             // Assert
-            noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Sale>(x => x.Price == 21.98f));
+            noSqlDatabase.Received().MakeSale(Arg.Is<RPGShop.Model.Sale>(x => x.Price == 21.98f));
         }
 
         [Test]
@@ -71,7 +72,7 @@ namespace RPGShopTests.Controllers.Sales
             HttpResponseMessage response = await client.PostAsync("https://localhost:7131/Shop/Sales/PayTab?customerName=Bob", content);
 
             // Assert
-            //response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
     }
 }

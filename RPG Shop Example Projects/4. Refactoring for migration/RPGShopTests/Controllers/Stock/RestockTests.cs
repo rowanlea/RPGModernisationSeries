@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Text;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Stock
 {
@@ -11,12 +12,6 @@ namespace RPGShopTests.Controllers.Stock
         public RestockTests()
         {
             _factory = new ShopApiFactory();
-        }
-
-        private class Outbound
-        {
-            public string itemName { get; set; }
-            public int numberToRestock { get; set; }
         }
 
         [Test]
@@ -44,7 +39,7 @@ namespace RPGShopTests.Controllers.Stock
             var response = await client.PostAsync("https://localhost:7131/Shop/Stock/Restock?itemName=Bad%20Item%20Name&numberToRestock=5", content);
 
             // Assert
-            //response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
     }
 }

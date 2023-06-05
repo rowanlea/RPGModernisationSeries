@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Sales
 {
@@ -18,7 +19,7 @@ namespace RPGShopTests.Controllers.Sales
         {
             // Arrange
             var client = _factory.CreateClient();
-            Sale[] foundSales = new Sale[0];
+            Sale[] foundSales = Array.Empty<Sale>();
 
             // Act
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Sales/GetSalesHistory");
@@ -30,10 +31,10 @@ namespace RPGShopTests.Controllers.Sales
             }
 
             // Assert
-            foundSales.Count().Should().Be(1);
-            foundSales[0].customerName.Should().Be("Rowan");
-            foundSales[0].items.Count().Should().Be(2);
-            foundSales[0].price.Should().Be(1.1f);
+            foundSales.Length.Should().Be(1);
+            foundSales[0].CustomerName.Should().Be("Rowan");
+            foundSales[0].Items.Length.Should().Be(2);
+            foundSales[0].Price.Should().Be(1.1f);
         }
     }
 }

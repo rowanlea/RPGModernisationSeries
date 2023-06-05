@@ -5,7 +5,9 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPGShop", "RPGShop\RPGShop.csproj", "{760C0039-393F-4989-B174-1313C781A20E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGShopTests", "RPGShopTests\RPGShopTests.csproj", "{50464F2F-1898-4178-A32C-0B173249ABAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPGShopTests", "RPGShopTests\RPGShopTests.csproj", "{50464F2F-1898-4178-A32C-0B173249ABAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGShop.IntegrationTests", "RPGShop.IntegrationTests\RPGShop.IntegrationTests.csproj", "{1F90DFF7-D442-44F0-B9CD-2F146DC64470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{50464F2F-1898-4178-A32C-0B173249ABAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50464F2F-1898-4178-A32C-0B173249ABAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50464F2F-1898-4178-A32C-0B173249ABAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F90DFF7-D442-44F0-B9CD-2F146DC64470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F90DFF7-D442-44F0-B9CD-2F146DC64470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F90DFF7-D442-44F0-B9CD-2F146DC64470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F90DFF7-D442-44F0-B9CD-2F146DC64470}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Stock
 {
@@ -43,7 +44,7 @@ namespace RPGShopTests.Controllers.Stock
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Stock/GetStockForItem?itemName=Bad%20Item%20Name");
 
             // Assert
-            //response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
     }
 }

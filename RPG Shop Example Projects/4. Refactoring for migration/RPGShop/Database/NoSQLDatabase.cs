@@ -1,15 +1,17 @@
 ﻿using MongoDB.Driver;
+using RPGShop.Model;
 
-namespace RPGShop
+namespace RPGShop.Database
 {
-    public class NoSQLDatabase : INoSqlDatabase
+    public class NoSqlDatabase : INoSqlDatabase
     {
-        MongoClient _dbClient;
-        IMongoDatabase _database;
+        private readonly MongoClient _dbClient;
+        private readonly IMongoDatabase _database;
 
-        public NoSQLDatabase()
+        public NoSqlDatabase(IConfiguration config)
         {
-            _dbClient = new MongoClient("mongodb://localhost:27017");
+            string? dbConnectionString = config.GetConnectionString("NoSqlConnectionString");
+            _dbClient = new MongoClient(dbConnectionString);
             _database = _dbClient.GetDatabase("Sales");
         }
 
@@ -19,7 +21,7 @@ namespace RPGShop
             collection.InsertOne(sale);
         }
 
-        public List<Sale> GetSalesHistory()
+        public IEnumerable<Sale> GetSalesHistory()
         {
             var collection = _database.GetCollection<Sale>("SalesHistory");
             var salesHistory = collection.Find(_ => true);

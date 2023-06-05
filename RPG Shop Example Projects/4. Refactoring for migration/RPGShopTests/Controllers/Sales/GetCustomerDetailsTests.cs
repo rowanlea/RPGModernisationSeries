@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using RPGShopTests.Helpers;
 
 namespace RPGShopTests.Controllers.Sales
 {
@@ -30,7 +31,7 @@ namespace RPGShopTests.Controllers.Sales
             }
 
             // Assert
-            foundDetails.name.Should().Be("Rowan");
+            foundDetails.Name.Should().Be("Rowan");
         }
 
         [Test]
@@ -38,13 +39,12 @@ namespace RPGShopTests.Controllers.Sales
         {
             // Arrange
             var client = _factory.CreateClient();
-            CustomerDetails foundDetails = new();
 
             // Act
             HttpResponseMessage response = await client.GetAsync("https://localhost:7131/Shop/Sales/GetCustomerDetails?customerName=Bad%20Name");
 
             // Assert
-            //response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound); // Commented out until I have time to fix in the pipeline
         }
     }
 }
